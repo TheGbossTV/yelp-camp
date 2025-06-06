@@ -1,9 +1,7 @@
+import HomePage from "./Pages/HomePage";
+
 function App() {
-  return (
-    <div>
-      <h1>Hello YelpCamp</h1>
-    </div>
-  );
+  return <HomePage />;
 }
 
 export default App;
