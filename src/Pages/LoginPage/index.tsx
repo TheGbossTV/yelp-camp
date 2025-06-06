@@ -1,10 +1,32 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    }).then((res) => {
+      if (res.ok) {
+        navigate("/");
+      }
+    });
+  };
+
   return (
     <div className="m-auto w-1/3 border border-gray-300 rounded-md p-4 flex flex-col items-center shadow-md">
-      <form className="flex flex-col gap-2 items-center w-[200px]">
+      <form
+        onSubmit={handleLogin}
+        className="flex flex-col gap-2 items-center w-[200px]"
+      >
         <h1 className="text-2xl font-bold">Login</h1>
         <input
           type="email"
