@@ -15,9 +15,13 @@ app.listen(PORT, () => {
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
   const { data, error } = await supabase.auth.signUp({
-    username,
     email,
     password,
+    options: {
+      data: {
+        username,
+      },
+    },
   });
 
   if (error) {
