@@ -1,34 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { type UserInfo } from "../../types/types";
-
 const HomePage = () => {
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-
-  const getUserInfo = async () => {
-    const response = await fetch("http://localhost:3000/userinfo");
-    const data = await response.json();
-    if (data.message) {
-      setUserInfo(null);
-      console.error(data.message);
-    } else {
-      setUserInfo(data);
-    }
+  const backgroundStyle = {
+    backgroundImage: "url('https://picsum.photos/id/28/4928/3264')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    position: "fixed" as const,
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    zIndex: -1,
   };
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
-
   return (
-    <div>
-      HomePage
-      {userInfo && (
-        <div>
-          {userInfo.user.email} - {userInfo.user.id} -{" "}
-          {userInfo.user.user_metadata.username}
-        </div>
-      )}
-    </div>
+    <>
+      <div style={backgroundStyle} />
+      <h1 className="text-2xl font-bold text-white">HomePage</h1>
+    </>
   );
 };
 
