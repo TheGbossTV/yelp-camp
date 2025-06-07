@@ -1,30 +1,57 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+interface LoginPageProps {
+  checkSession: () => Promise<void>;
+}
+
+const LoginPage = (props: LoginPageProps) => {
   const navigate = useNavigate();
+
+  const { checkSession } = props;
+
+  /**
+   * Handles form submission for login
+   *
+   * This function:
+   * 1. Prevents default form submission
+   * 2. Extracts email/password from the form
+   * 3. Sends a POST request to the login endpoint with credentials included
+   * 4. On success:
+   *    - Calls checkSession to update app authentication state
+   *    - Navigates to the home page
+   * 5. On failure, displays error message
+   *
+   * The 'credentials: include' option is essential for the session cookie
+   * to be stored in the browser after login.
+   */
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    const response = await fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
 
-    if (response.ok) {
-      navigate("/");
-    } else {
-      const data = await response.json();
-      // TODO: Add a toast notification
-      // - If credentials are incorrect, show a toast notification
-      // - If credentials are correct, show a toast notification
-      // - If credentials are missing, show a toast notification
-      console.error(data.message, "please try a different email or password");
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: "include", // Essential for storing the session cookie
+      });
+
+      if (response.ok) {
+        // After successful login, refresh the session
+        // This updates the parent component's authentication state
+        await checkSession();
+        navigate("/");
+      } else {
+        const data = await response.json();
+        console.error(data.message, "please try a different email or password");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
     }
   };
 
