@@ -8,17 +8,24 @@ const LoginPage = () => {
     const formData = new FormData(e.target as HTMLFormElement);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    await fetch("http://localhost:3000/login", {
+    const response = await fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
-    }).then((res) => {
-      if (res.ok) {
-        navigate("/");
-      }
     });
+
+    if (response.ok) {
+      navigate("/");
+    } else {
+      const data = await response.json();
+      // TODO: Add a toast notification
+      // - If credentials are incorrect, show a toast notification
+      // - If credentials are correct, show a toast notification
+      // - If credentials are missing, show a toast notification
+      console.error(data.message, "please try a different email or password");
+    }
   };
 
   return (

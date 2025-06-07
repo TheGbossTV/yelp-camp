@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { supabase } from "../supabase-config-client.js";
+import { supabaseServer } from "../supabase-config-server.js";
 
 const PORT = 3000;
 
@@ -15,7 +15,7 @@ app.listen(PORT, () => {
 // POST REQUESTS
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { error } = await supabaseServer.auth.signInWithPassword({
     email,
     password,
   });
@@ -28,7 +28,7 @@ app.post("/login", async (req, res) => {
 
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
-  const { data, error } = await supabase.auth.signUp({
+  const { error } = await supabaseServer.auth.signUp({
     email,
     password,
     options: {
@@ -46,8 +46,8 @@ app.post("/register", async (req, res) => {
 });
 
 // GET REQUESTS
-app.get("/userinfo", async (req, res) => {
-  const { data, error } = await supabase.auth.getUser();
+app.get("/session", async (req, res) => {
+  const { data, error } = await supabaseServer.auth.getSession();
   if (error) {
     res.status(400).send({ message: error.message });
   } else {

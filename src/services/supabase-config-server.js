@@ -13,4 +13,4 @@ if (process.env.NODE_ENV !== "production") {
 const supabaseUrl = process.env.VITE_SUPABASE_URL;
 const supabaseApiKey = process.env.VITE_SUPABASE_API_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseApiKey);
+export const supabaseServer = createClient(supabaseUrl, supabaseApiKey);

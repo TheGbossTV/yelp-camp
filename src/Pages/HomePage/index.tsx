@@ -7,7 +7,12 @@ const HomePage = () => {
   const getUserInfo = async () => {
     const response = await fetch("http://localhost:3000/userinfo");
     const data = await response.json();
-    setUserInfo(data);
+    if (data.message) {
+      setUserInfo(null);
+      console.error(data.message);
+    } else {
+      setUserInfo(data);
+    }
   };
 
   useEffect(() => {
