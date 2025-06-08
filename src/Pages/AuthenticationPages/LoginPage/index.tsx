@@ -56,7 +56,7 @@ const LoginPage = (props: LoginPageProps) => {
   };
 
   return (
-    <div className="m-auto w-1/3 border border-gray-300 rounded-md p-4 flex flex-col items-center shadow-md">
+    <div className="m-auto w-1/4 border border-gray-300 rounded-md p-4 flex flex-col items-center drop-shadow-lg bg-gray-100">
       <form
         onSubmit={handleLogin}
         className="flex flex-col gap-2 items-center w-[200px]"
@@ -83,9 +83,12 @@ const LoginPage = (props: LoginPageProps) => {
         <p className="text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
           Forgot password?
         </p>
-        <p className="text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
+        <p className="text-sm text-gray-500">
           Don't have an account?{" "}
-          <Link to="/register" className="text-blue-500">
+          <Link
+            to="/register"
+            className="text-blue-500 cursor-pointer hover:text-blue-700"
+          >
             Register
           </Link>
         </p>

@@ -59,7 +59,7 @@ const RegisterPage = (props: RegisterPageProps) => {
   };
 
   return (
-    <div className="m-auto w-1/3 border border-gray-300 rounded-md p-4 flex flex-col items-center shadow-md">
+    <div className="m-auto w-1/4 border border-gray-300 rounded-md p-4 flex flex-col items-center drop-shadow-lg bg-gray-100">
       <form
         onSubmit={(e) => handleRegister(e)}
         method="post"
