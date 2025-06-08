@@ -24,7 +24,7 @@ const Navbar = (props: NavbarProps) => {
         Campgrounds
       </Link>
       <Link
-        to={"/new-campground"}
+        to={user ? "/campgrounds/add" : "/login"}
         className="text-gray-200 px-4 py-2 hover:text-gray-50"
       >
         New Campground

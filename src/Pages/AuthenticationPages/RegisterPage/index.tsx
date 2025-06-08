@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import BackgroundImage from "../../../components/BackgroundImage";
 
 interface RegisterPageProps {
   checkSession: () => Promise<void>;
@@ -59,45 +60,48 @@ const RegisterPage = (props: RegisterPageProps) => {
   };
 
   return (
-    <div className="m-auto w-1/4 border border-gray-300 rounded-md p-4 flex flex-col items-center drop-shadow-lg bg-gray-100">
-      <form
-        onSubmit={(e) => handleRegister(e)}
-        method="post"
-        className="flex flex-col gap-2 items-center w-[200px]"
-      >
-        <h1 className="text-2xl font-bold">Register</h1>
-        <div className="flex flex-col gap-2">
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            className="border border-gray-300 rounded-md p-2"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="border border-gray-300 rounded-md p-2"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            className="border border-gray-300 rounded-md p-2"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white p-2 rounded-md w-[100px]"
+    <>
+      <BackgroundImage />
+      <div className="m-auto w-1/4 border border-gray-300 rounded-md p-4 flex flex-col items-center drop-shadow-lg bg-gray-100">
+        <form
+          onSubmit={(e) => handleRegister(e)}
+          method="post"
+          className="flex flex-col gap-2 items-center w-[200px]"
         >
-          Register
-        </button>
-      </form>
-    </div>
+          <h1 className="text-2xl font-bold">Register</h1>
+          <div className="flex flex-col gap-2">
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              className="border border-gray-300 rounded-md p-2"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="border border-gray-300 rounded-md p-2"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              className="border border-gray-300 rounded-md p-2"
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white p-2 rounded-md w-[100px]"
+          >
+            Register
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 

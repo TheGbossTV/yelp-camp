@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import type { User } from "@supabase/supabase-js";
 
+import BackgroundImage from "../../components/BackgroundImage";
+
 interface HomePageProps {
-  user: User | null;
+  user?: User | null;
 }
 
 const HomePage = (props: HomePageProps) => {
   const { user } = props;
   return (
     <div className="flex-1">
+      <BackgroundImage />
       {/* Hero Section */}
       <div className="relative flex flex-col items-center justify-center min-h-[80vh] text-center px-4">
         <div className="absolute inset-0 bg-black/50 z-0" />
@@ -28,7 +31,7 @@ const HomePage = (props: HomePageProps) => {
             </Link>
             {!user && (
               <Link
-                to="/register"
+                to="/login"
                 className="bg-white hover:bg-gray-100 text-gray-900 px-8 py-3 rounded-lg text-lg font-semibold transition-colors duration-200"
               >
                 Start Your Journey

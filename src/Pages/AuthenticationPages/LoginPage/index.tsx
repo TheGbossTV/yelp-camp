@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import BackgroundImage from "../../../components/BackgroundImage";
 
 interface LoginPageProps {
   checkSession: () => Promise<void>;
@@ -56,44 +57,47 @@ const LoginPage = (props: LoginPageProps) => {
   };
 
   return (
-    <div className="m-auto w-1/4 border border-gray-300 rounded-md p-4 flex flex-col items-center drop-shadow-lg bg-gray-100">
-      <form
-        onSubmit={handleLogin}
-        className="flex flex-col gap-2 items-center w-[200px]"
-      >
-        <h1 className="text-2xl font-bold">Login</h1>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          className="border border-gray-300 rounded-md p-2"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          className="border border-gray-300 rounded-md p-2"
-        />
-        <button
-          type="submit"
-          className="bg-green-500 text-white p-2 rounded-md w-[100px]"
+    <>
+      <BackgroundImage />
+      <div className="m-auto lg:w-1/4 md:w-1/3 sm:w-1/2 border border-gray-300 rounded-md p-4 flex flex-col items-center drop-shadow-lg bg-gray-100">
+        <form
+          onSubmit={handleLogin}
+          className="flex flex-col gap-2 items-center w-[200px]"
         >
-          Login
-        </button>
-        <p className="text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-          Forgot password?
-        </p>
-        <p className="text-sm text-gray-500">
-          Don't have an account?{" "}
-          <Link
-            to="/register"
-            className="text-blue-500 cursor-pointer hover:text-blue-700"
+          <h1 className="text-2xl font-bold">Login</h1>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="border border-gray-300 rounded-md p-2"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="border border-gray-300 rounded-md p-2"
+          />
+          <button
+            type="submit"
+            className="bg-green-500 text-white p-2 rounded-md w-[100px]"
           >
-            Register
-          </Link>
-        </p>
-      </form>
-    </div>
+            Login
+          </button>
+          <p className="text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
+            Forgot password?
+          </p>
+          <p className="text-sm text-gray-500">
+            Don't have an account?{" "}
+            <Link
+              to="/register"
+              className="text-blue-500 cursor-pointer hover:text-blue-700"
+            >
+              Register
+            </Link>
+          </p>
+        </form>
+      </div>
+    </>
   );
 };
 

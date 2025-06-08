@@ -7,24 +7,12 @@ import Footer from "./layout/Footer";
 
 // Pages
 import HomePage from "./Pages/HomePage";
-import Campgrounds from "./Pages/Campgrounds";
+import CampgroundList from "./Pages/CampgroundPages/CampgroundList";
+import NewCampground from "./Pages/CampgroundPages/NewCampground";
 import RegisterPage from "./Pages/AuthenticationPages/RegisterPage";
 import LoginPage from "./Pages/AuthenticationPages/LoginPage";
 
 import type { Session } from "@supabase/supabase-js";
-
-const backgroundStyle = {
-  backgroundImage: "url('https://picsum.photos/id/28/4928/3264')",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  position: "fixed" as const,
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  zIndex: -1,
-};
 
 function App() {
   // State to store session data from the server
@@ -96,14 +84,12 @@ function App() {
   }, []);
 
   return (
-    <div
-      className="flex flex-col h-screen overflow-y-auto"
-      style={backgroundStyle}
-    >
+    <div className="flex flex-col h-screen overflow-y-auto">
       <Navbar user={session?.user} logout={logout} />
       <Routes>
         <Route path="/" element={<HomePage user={session?.user} />} />
-        <Route path="/campgrounds" element={<Campgrounds />} />
+        <Route path="/campgrounds" element={<CampgroundList />} />
+        <Route path="/campgrounds/add" element={<NewCampground />} />
         <Route
           path="/login"
           element={<LoginPage checkSession={checkSession} />}
