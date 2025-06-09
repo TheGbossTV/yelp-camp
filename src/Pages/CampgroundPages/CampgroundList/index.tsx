@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import type { Campground } from "../../../types/types";
 
+import CampCard from "../../../components/CampCard";
+import { Link } from "react-router-dom";
+
 const CampgroundList = () => {
   const [campgrounds, setCampgrounds] = useState<Campground[]>([]);
 
@@ -15,13 +18,18 @@ const CampgroundList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col gap-8 px-20 py-10 bg-green-300">
+      <div className="flex justify-between items-center">
+        <h1 className="text-4xl font-bold">Campgrounds</h1>
+        <Link
+          to="/campgrounds/new"
+          className="bg-orange-500 text-white px-4 py-2 rounded-md"
+        >
+          Add New Campground
+        </Link>
+      </div>
       {campgrounds.map((campground) => (
-        <div key={campground.id}>
-          <p>{campground.title}</p>
-          <p>{campground.price}</p>
-          <p>{campground.description}</p>
-        </div>
+        <CampCard key={campground.id} {...campground} />
       ))}
     </div>
   );
