@@ -1,17 +1,21 @@
+import backgroundImg from "../../assets/images/background.jpg";
+
 const BackgroundImage = () => {
-  const backgroundStyle = {
-    backgroundImage: "url('https://picsum.photos/id/28/4928/3264')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    position: "fixed" as const,
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    zIndex: -1,
-  };
-  return <div style={backgroundStyle} />;
+  return (
+    <img
+      src={backgroundImg}
+      alt="Background"
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        zIndex: -1,
+      }}
+    />
+  );
 };
 
 export default BackgroundImage;

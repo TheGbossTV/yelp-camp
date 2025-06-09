@@ -207,3 +207,12 @@ app.get("/session", async (req, res) => {
     res.send({ session: null });
   }
 });
+
+app.get("/campground", async (req, res) => {
+  const { data, error } = await supabaseServer.from("Posts").select("*");
+  if (error) {
+    res.status(400).send({ message: error.message });
+  } else {
+    res.send(data);
+  }
+});

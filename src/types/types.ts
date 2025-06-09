@@ -10,7 +10,7 @@ export type UserInfo = {
 
 export type Campground = {
   id: string;
-  name: string;
+  title: string;
   price: number;
   description: string;
 };

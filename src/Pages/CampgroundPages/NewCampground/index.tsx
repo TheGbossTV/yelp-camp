@@ -1,12 +1,12 @@
 import { useState } from "react";
-import type { Campground } from "../../../types/types";
+import { useNavigate } from "react-router-dom";
 
 const NewCampground = () => {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-
-  const [campgrounds, setCampgrounds] = useState<Campground[]>([]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,18 +22,10 @@ const NewCampground = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setCampgrounds((prev) => [
-          ...prev,
-          {
-            id: data.data.id,
-            name,
-            price: Number(price),
-            description,
-          },
-        ]);
         setName("");
         setPrice("");
         setDescription("");
+        navigate("/campgrounds");
       } else {
         alert(data.message || "Failed to create campground");
       }
@@ -44,36 +36,42 @@ const NewCampground = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <button type="submit">Create</button>
-      </form>
-
-      {campgrounds.map((campground) => (
-        <div key={campground.id}>
-          <h2>{campground.name}</h2>
-          <p>{campground.price}</p>
-          <p>{campground.description}</p>
-        </div>
-      ))}
+    <div className="bg-orange-100 h-screen flex flex-col justify-center items-center gap-y-2">
+      <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
+        Add New Campground
+      </h1>
+      <div className="flex justify-start items-center rounded-lg border-2 border-gray-900 p-4 w-[65%] bg-white">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
+          <div className="flex flex-col md:flex-row gap-4 w-full">
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="border-2 border-gray-900 rounded-md p-2"
+            />
+            <input
+              type="text"
+              placeholder="Price per night"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              className="border-2 border-gray-900 rounded-md p-2"
+            />
+          </div>
+          <textarea
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="border-2 border-gray-900 rounded-md p-2 h-[200px] max-h-[320px]"
+          />
+          <button
+            type="submit"
+            className="bg-orange-500 text-white rounded-md p-2"
+          >
+            Create
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
