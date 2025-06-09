@@ -216,3 +216,17 @@ app.get("/campground", async (req, res) => {
     res.send(data);
   }
 });
+
+app.get("/campground/my-campgrounds/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const { data, error } = await supabaseServer
+    .from("Posts")
+    .select("*")
+    .eq("created_by", userId);
+
+  if (error) {
+    res.status(400).send({ message: error.message });
+  } else {
+    res.send(data);
+  }
+});

@@ -1,8 +1,15 @@
+import { Link } from "react-router-dom";
 import type { Campground } from "../../types/types";
 
-const CampCard = (campground: Campground) => {
+interface CampCardProps {
+  campground: Campground;
+  isMyCampground?: boolean;
+}
+
+const CampCard = (props: CampCardProps) => {
+  const { campground, isMyCampground = false } = props;
   return (
-    <div className="flex gap-2 border-2 border-gray-900 rounded-lg p-2 bg-orange-100">
+    <div className="flex gap-2 border-2 border-gray-900 rounded-lg p-2 bg-orange-100 h-[220px]">
       <div className="min-h-[200px] min-w-[200px] border-2 border-black rounded-lg">
         Image placeholder
       </div>
@@ -12,9 +19,24 @@ const CampCard = (campground: Campground) => {
           <p>
             <b>Price:</b> {campground.price}€ per night
           </p>
-          <button className="ml-auto">View Campground</button>
+          <Link
+            to={`/campgrounds/${campground.id}`}
+            className="ml-auto bg-blue-500 text-white px-4 py-2 rounded-md"
+          >
+            View Campground
+          </Link>
+          {isMyCampground && (
+            <Link
+              to={`/campgrounds/edit/${campground.id}`}
+              className="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md"
+            >
+              Edit
+            </Link>
+          )}
         </div>
-        <p>{campground.description}</p>
+        <p className="text-ellipsis overflow-hidden line-clamp-6">
+          {campground.description}
+        </p>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ const CampgroundList = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-8 px-20 py-10 bg-green-300">
+    <div className="flex flex-col gap-8 px-20 py-10">
       <div className="flex justify-between items-center">
         <h1 className="text-4xl font-bold">Campgrounds</h1>
         <Link
@@ -29,7 +29,7 @@ const CampgroundList = () => {
         </Link>
       </div>
       {campgrounds.map((campground) => (
-        <CampCard key={campground.id} {...campground} />
+        <CampCard key={campground.id} campground={campground} />
       ))}
     </div>
   );

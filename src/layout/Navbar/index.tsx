@@ -32,6 +32,12 @@ const Navbar = (props: NavbarProps) => {
       <div className="ml-auto flex gap-2">
         {user ? (
           <div className="flex items-center gap-2">
+            <Link
+              to={"/campgrounds/my-campgrounds"}
+              className="text-gray-200 px-4 py-2 hover:text-gray-50"
+            >
+              My Campgrounds
+            </Link>
             <span className="text-gray-200">{user.user_metadata.username}</span>
             <button
               onClick={logout}

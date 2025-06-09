@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import type { User } from "@supabase/supabase-js";
 
-const NewCampground = () => {
+interface NewCampgroundProps {
+  user?: User | null;
+}
+
+const NewCampground = (props: NewCampgroundProps) => {
+  const { user } = props;
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -34,6 +40,12 @@ const NewCampground = () => {
       alert("Failed to create campground. Please try again.");
     }
   };
+
+  if (!user) {
+    return (
+      <div>YOU ARE NOT LOGGED IN 😡. You have no access to this screen</div>
+    );
+  }
 
   return (
     <div className="bg-orange-100 h-screen flex flex-col justify-center items-center gap-y-2">

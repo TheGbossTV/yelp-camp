@@ -13,6 +13,7 @@ import RegisterPage from "./Pages/AuthenticationPages/RegisterPage";
 import LoginPage from "./Pages/AuthenticationPages/LoginPage";
 
 import type { Session } from "@supabase/supabase-js";
+import MyCampgrounds from "./Pages/CampgroundPages/MyCampgrounds";
 
 function App() {
   // State to store session data from the server
@@ -84,23 +85,33 @@ function App() {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen overflow-y-auto">
-      <Navbar user={session?.user} logout={logout} />
-      <Routes>
-        <Route path="/" element={<HomePage user={session?.user} />} />
-        <Route path="/campgrounds" element={<CampgroundList />} />
-        <Route path="/campgrounds/add" element={<NewCampground />} />
-        <Route
-          path="/login"
-          element={<LoginPage checkSession={checkSession} />}
-        />
-        <Route
-          path="/register"
-          element={<RegisterPage checkSession={checkSession} />}
-        />
-      </Routes>
-      <Footer />
-    </div>
+    <>
+      <div className="bg-green-300 h-screen absolute top-0 left-0 w-full z-[-2]" />
+      <div className="flex flex-col h-screen overflow-y-auto">
+        <Navbar user={session?.user} logout={logout} />
+        <Routes>
+          <Route path="/" element={<HomePage user={session?.user} />} />
+          <Route path="/campgrounds" element={<CampgroundList />} />
+          <Route
+            path="/campgrounds/add"
+            element={<NewCampground user={session?.user} />}
+          />
+          <Route
+            path="/campgrounds/my-campgrounds"
+            element={<MyCampgrounds user={session?.user} />}
+          />
+          <Route
+            path="/login"
+            element={<LoginPage checkSession={checkSession} />}
+          />
+          <Route
+            path="/register"
+            element={<RegisterPage checkSession={checkSession} />}
+          />
+        </Routes>
+        <Footer />
+      </div>
+    </>
   );
 }
 
