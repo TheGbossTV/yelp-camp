@@ -73,25 +73,6 @@ const HomePage = (props: HomePageProps) => {
           </div>
         </div>
       </div>
-
-      {/* Search Section */}
-      <div className="bg-gray-100 py-16 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
-            Find Your Next Adventure
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <input
-              type="text"
-              placeholder="Search for campgrounds..."
-              className="px-6 py-3 rounded-lg border-2 border-gray-300 focus:border-green-500 focus:outline-none flex-1 max-w-lg"
-            />
-            <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200">
-              Search
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
