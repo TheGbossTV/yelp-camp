@@ -232,7 +232,6 @@ app.get("/campground/my-campgrounds/:userId", async (req, res) => {
 });
 
 // PATCH REQUESTS
-// TODO: Add a patch request to update a campground
 app.patch("/campground/:postId", async (req, res) => {
   const { postId } = req.params;
   const { data, error } = await supabaseServer
