@@ -11,9 +11,10 @@ import CampgroundList from "./Pages/CampgroundPages/CampgroundList";
 import NewCampground from "./Pages/CampgroundPages/NewCampground";
 import RegisterPage from "./Pages/AuthenticationPages/RegisterPage";
 import LoginPage from "./Pages/AuthenticationPages/LoginPage";
+import MyCampgrounds from "./Pages/CampgroundPages/MyCampgrounds";
+import CampgroundEdit from "./Pages/CampgroundPages/CampgroundEdit";
 
 import type { Session } from "@supabase/supabase-js";
-import MyCampgrounds from "./Pages/CampgroundPages/MyCampgrounds";
 
 function App() {
   // State to store session data from the server
@@ -99,6 +100,10 @@ function App() {
           <Route
             path="/campgrounds/my-campgrounds"
             element={<MyCampgrounds user={session?.user} />}
+          />
+          <Route
+            path="/campgrounds/edit/:id"
+            element={<CampgroundEdit user={session?.user} />}
           />
           <Route
             path="/login"

@@ -233,7 +233,7 @@ app.get("/campground/my-campgrounds/:userId", async (req, res) => {
 
 // PATCH REQUESTS
 // TODO: Add a patch request to update a campground
-app.patch("/campground/:id", async (req, res) => {
+app.patch("/campground/:postId", async (req, res) => {
   const { postId } = req.params;
   const { data, error } = await supabaseServer
     .from("Posts")
@@ -245,5 +245,20 @@ app.patch("/campground/:id", async (req, res) => {
     res.status(400).send({ message: error.message });
   } else {
     res.send(data);
+  }
+});
+
+// DELETE REQUESTS
+app.delete("/campground/:postId", async (req, res) => {
+  const { postId } = req.params;
+  const { error } = await supabaseServer
+    .from("Posts")
+    .delete()
+    .eq("id", postId);
+
+  if (error) {
+    res.status(400).send({ message: error.message });
+  } else {
+    res.send({ message: "Campground deleted" });
   }
 });

@@ -11,6 +11,6 @@ export type UserInfo = {
 export type Campground = {
   id: string;
   title: string;
-  price: number;
+  price: string;
   description: string;
 };
