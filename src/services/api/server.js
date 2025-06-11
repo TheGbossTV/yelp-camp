@@ -230,3 +230,20 @@ app.get("/campground/my-campgrounds/:userId", async (req, res) => {
     res.send(data);
   }
 });
+
+// PATCH REQUESTS
+// TODO: Add a patch request to update a campground
+app.patch("/campground/:id", async (req, res) => {
+  const { postId } = req.params;
+  const { data, error } = await supabaseServer
+    .from("Posts")
+    .update(req.body)
+    .eq("id", postId)
+    .select();
+
+  if (error) {
+    res.status(400).send({ message: error.message });
+  } else {
+    res.send(data);
+  }
+});
