@@ -13,4 +13,5 @@ export type Campground = {
   title: string;
   price: string;
   description: string;
+  imageUrl: string;
 };

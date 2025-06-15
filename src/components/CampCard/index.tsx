@@ -26,7 +26,15 @@ const CampCard = (props: CampCardProps) => {
   return (
     <div className="flex gap-2 border-2 border-gray-900 rounded-lg p-2 bg-orange-100 h-[220px]">
       <div className="min-h-[200px] min-w-[200px] border-2 border-black rounded-lg">
-        Image placeholder
+        {campground.imageUrl ? (
+          <img
+            src={campground.imageUrl}
+            alt={campground.title}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          "Failed to load image"
+        )}
       </div>
       <div className="flex flex-col gap-2 w-full">
         <div className="flex gap-2 items-baseline w-full">
