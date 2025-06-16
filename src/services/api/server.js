@@ -3,8 +3,17 @@ import cors from "cors";
 import session from "express-session"; // Import express-session middleware for server-side session management
 import { supabaseServer } from "../supabase-config-server.js";
 import { v4 as uuidv4 } from "uuid";
+import multer from "multer";
 
 const PORT = 3000;
+
+// Configure multer for handling file uploads
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 10 * 1024 * 1024, // 10MB limit
+  },
+});
 
 const app = express();
 app.use(express.json());
@@ -131,7 +140,7 @@ app.post("/logout", async (req, res) => {
   }
 });
 
-app.post("/campground", async (req, res) => {
+app.post("/campground", upload.single("postImage"), async (req, res) => {
   // Check if user is authenticated
   if (!req.session.user) {
     return res
@@ -140,7 +149,33 @@ app.post("/campground", async (req, res) => {
   }
 
   const { name, price, description } = req.body;
+  const postImage = req.file; // File will be available here
+
   try {
+    let imageUrl = null;
+    if (postImage) {
+      const filePath = `campground-images/${
+        postImage.originalname
+      }-${uuidv4()}`;
+
+      const { error } = await supabaseServer.storage
+        .from("images")
+        .upload(filePath, postImage.buffer, {
+          contentType: postImage.mimetype,
+        });
+
+      if (error) {
+        return res.status(400).send({ message: error.message });
+      }
+
+      // Get the public URL for the uploaded image
+      const {
+        data: { publicUrl },
+      } = supabaseServer.storage.from("images").getPublicUrl(filePath);
+
+      imageUrl = publicUrl;
+    }
+
     const { data, error } = await supabaseServer
       .from("Posts")
       .insert({
@@ -151,6 +186,7 @@ app.post("/campground", async (req, res) => {
         price: price,
         description: description,
         email: req.session.user.email,
+        image_url: imageUrl,
       })
       .select()
       .single();
@@ -166,6 +202,7 @@ app.post("/campground", async (req, res) => {
     res.status(500).send({ message: "Failed to create campground" });
   }
 });
+
 // GET REQUESTS
 /**
  * Session check endpoint
