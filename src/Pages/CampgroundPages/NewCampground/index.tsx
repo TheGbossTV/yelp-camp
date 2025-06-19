@@ -64,12 +64,12 @@ const NewCampground = (props: NewCampgroundProps) => {
   };
 
   // TODO: If the user is logged in and refreshes the page here, they go to the login page FIX BUG
+  // TODO: If the user logs off in this page, they stay on the page FIX BUG
   useEffect(() => {
     if (!user) {
       navigate("/login");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user, navigate]);
 
   return (
     <div className="bg-orange-100 h-screen flex flex-col justify-center items-center gap-y-2">
@@ -83,6 +83,7 @@ const NewCampground = (props: NewCampgroundProps) => {
               <img
                 src={imagePreview}
                 alt="Preview"
+                aria-label="Image preview"
                 className="w-[200px] h-[200px] object-cover"
               />
             )}
