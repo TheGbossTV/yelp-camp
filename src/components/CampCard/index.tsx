@@ -25,7 +25,7 @@ const CampCard = (props: CampCardProps) => {
 
   return (
     <div className="flex gap-2 border-2 border-gray-900 rounded-lg p-2 bg-orange-100 h-[220px]">
-      <div className="min-h-[200px] min-w-[200px] border-2 border-black rounded-lg">
+      <div className="min-h-[200px] min-w-[200px] max-h-[200px] max-w-[200px] border-2 border-black rounded-lg">
         {campground.image_url ? (
           <img
             src={campground.image_url}

@@ -15,6 +15,7 @@ import MyCampgrounds from "./Pages/CampgroundPages/MyCampgrounds";
 import CampgroundEdit from "./Pages/CampgroundPages/CampgroundEdit";
 
 import type { Session } from "@supabase/supabase-js";
+import ViewCampground from "./Pages/CampgroundPages/ViewCampground";
 
 function App() {
   // State to store session data from the server
@@ -105,6 +106,7 @@ function App() {
             path="/campgrounds/edit/:id"
             element={<CampgroundEdit user={session?.user} />}
           />
+          <Route path="/campgrounds/:id" element={<ViewCampground />} />
           <Route
             path="/login"
             element={<LoginPage checkSession={checkSession} />}
