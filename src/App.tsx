@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 // Layout
 import Navbar from "./layout/Navbar";
@@ -17,10 +17,50 @@ import CampgroundEdit from "./Pages/CampgroundPages/CampgroundEdit";
 import type { Session } from "@supabase/supabase-js";
 import ViewCampground from "./Pages/CampgroundPages/ViewCampground";
 
+// Custom hook to handle scrolling to top on route change
+function useScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // Try multiple approaches to ensure scrolling works
+    const scrollOptions = {
+      top: 0,
+      left: 0,
+      behavior: "auto" as ScrollBehavior,
+    };
+
+    try {
+      // First try the modern approach
+      window.scroll(scrollOptions);
+    } catch {
+      // Fallback to older method
+      window.scrollTo(0, 0);
+    }
+
+    // Also try scrollIntoView as another fallback
+    try {
+      document.documentElement.scrollTo(0, 0);
+      document.body.scrollTo(0, 0);
+
+      // Also try to scroll the main content div
+      const mainContent = document.getElementById("main-content");
+      if (mainContent) {
+        mainContent.scrollTop = 0;
+      }
+    } catch {
+      console.error("Error scrolling");
+    }
+  }, [pathname]);
+}
+
 function App() {
   // State to store session data from the server
   // These state variables are the source of truth for authentication state
   const [session, setSession] = useState<Session | null>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
+
+  // Use the custom hook to scroll to top on route change
+  useScrollToTop();
 
   /**
    * Fetches session data from the server
@@ -89,7 +129,11 @@ function App() {
   return (
     <>
       <div className="bg-green-300 h-screen absolute top-0 left-0 w-full z-[-2]" />
-      <div className="flex flex-col h-screen overflow-y-auto">
+      <div
+        className="flex flex-col h-screen overflow-y-auto"
+        ref={mainRef}
+        id="main-content"
+      >
         <Navbar user={session?.user} logout={logout} />
         <Routes>
           <Route path="/" element={<HomePage user={session?.user} />} />
